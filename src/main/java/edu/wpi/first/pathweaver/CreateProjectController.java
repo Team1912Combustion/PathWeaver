@@ -52,6 +52,8 @@ public class CreateProjectController {
 	@FXML
 	private TextField maxAcceleration;
 	@FXML
+	private TextField maxCentripetalAcceleration;
+	@FXML
 	private TextField wheelBase;
 	@FXML
 	private ChoiceBox<Game> game;
@@ -68,6 +70,8 @@ public class CreateProjectController {
 	@FXML
 	private Label accelerationLabel;
 	@FXML
+	private Label centripetalLabel;
+	@FXML
 	private Label wheelBaseLabel;
 	@FXML
 	private Label velocityUnits;
@@ -82,7 +86,7 @@ public class CreateProjectController {
 
 	private void initialize() {
 		ObservableList<TextField> numericFields = FXCollections.observableArrayList(maxVelocity,
-				maxAcceleration, wheelBase);
+				maxAcceleration, maxCentripetalAcceleration, wheelBase);
 		ObservableList<TextField> allFields = FXCollections.observableArrayList(numericFields);
 		allFields.add(directory);
 
@@ -90,6 +94,7 @@ public class CreateProjectController {
 		var outputControls = List.of(outputLabel, outputDirectory, browseOutput);
 		var velocityControls = List.of(velocityLabel, maxVelocity, velocityUnits);
 		var accelerationControls = List.of(accelerationLabel, maxAcceleration, accelerationUnits);
+		var centripetalControls = List.of(centripetalLabel, maxCentripetalAcceleration, accelerationUnits);
 		var wheelBaseControls = List.of(wheelBaseLabel, wheelBase, wheelBaseUnits);
 
 		BooleanBinding bind = new SimpleBooleanProperty(true).not();
@@ -201,9 +206,10 @@ public class CreateProjectController {
 		String exportUnit = export.getValue().getName();
 		double velocityMax = Double.parseDouble(maxVelocity.getText());
 		double accelerationMax = Double.parseDouble(maxAcceleration.getText());
+		double centripetalMax = Double.parseDouble(maxCentripetalAcceleration.getText());
 		double wheelBaseDistance = Double.parseDouble(wheelBase.getText());
 		ProjectPreferences.Values values = new ProjectPreferences.Values(lengthUnit, exportUnit, velocityMax,
-				accelerationMax, wheelBaseDistance, game.getValue().getName(), outputPath);
+				accelerationMax, centripetalMax, wheelBaseDistance, game.getValue().getName(), outputPath);
 		ProjectPreferences prefs = ProjectPreferences.getInstance(directory.getAbsolutePath());
 		prefs.setValues(values);
 		editing = false;
@@ -248,6 +254,7 @@ public class CreateProjectController {
 		export.setValue(values.getExportUnit());
 		maxVelocity.setText(String.valueOf(values.getMaxVelocity()));
 		maxAcceleration.setText(String.valueOf(values.getMaxAcceleration()));
+		maxCentripetalAcceleration.setText(String.valueOf(values.getMaxCentripetalAcceleration()));
 		wheelBase.setText(String.valueOf(values.getWheelBase()));
 		editing = true;
 	}

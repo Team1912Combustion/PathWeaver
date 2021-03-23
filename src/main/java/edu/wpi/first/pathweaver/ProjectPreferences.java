@@ -97,7 +97,7 @@ public class ProjectPreferences {
 	}
 
 	private void setDefaults() {
-		values = new Values("FOOT", "Always Meters", 10.0, 60.0, 2.0, Game.INFINTE_RECHARGE_2020.getName(), null);
+		values = new Values("FOOT", "Always Meters", 10.0, 60.0, 2.0, 2.0, Game.INFINTE_RECHARGE_2020.getName(), null);
 		updateValues();
 	}
 
@@ -230,6 +230,7 @@ public class ProjectPreferences {
 		private String exportUnit;
 		private final double maxVelocity;
 		private final double maxAcceleration;
+		private final double maxCentripetalAcceleration;
 		private final double wheelBase;
 		private String gameName;
 		private final String outputDir;
@@ -243,6 +244,8 @@ public class ProjectPreferences {
 		 *            The maximum velocity the body is capable of travelling at
 		 * @param maxAcceleration
 		 *            The maximum acceleration to use
+		 * @param maxCentripetalAcceleration
+		 *            The maximum centripetal acceleration to use
 		 * @param wheelBase
 		 *            The width between the individual sides of the drivebase
 		 * @param gameName
@@ -251,11 +254,12 @@ public class ProjectPreferences {
 		 *            The directory for the output files
 		 */
 		public Values(String lengthUnit, String exportUnit, double maxVelocity, double maxAcceleration,
-				double wheelBase, String gameName, String outputDir) {
+				double maxCentripetalAcceleration, double wheelBase, String gameName, String outputDir) {
 			this.lengthUnit = lengthUnit;
 			this.exportUnit = exportUnit;
 			this.maxVelocity = maxVelocity;
 			this.maxAcceleration = maxAcceleration;
+			this.maxCentripetalAcceleration = maxCentripetalAcceleration;
 			this.wheelBase = wheelBase;
 			this.gameName = gameName;
 			this.outputDir = outputDir;
@@ -275,6 +279,10 @@ public class ProjectPreferences {
 
 		public double getMaxAcceleration() {
 			return maxAcceleration;
+		}
+
+		public double getMaxCentripetalAcceleration() {
+			return maxCentripetalAcceleration;
 		}
 
 		public double getWheelBase() {

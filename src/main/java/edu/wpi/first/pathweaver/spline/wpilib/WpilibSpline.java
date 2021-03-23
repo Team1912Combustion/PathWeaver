@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
+import edu.wpi.first.wpilibj.trajectory.constraint.CentripetalAccelerationConstraint;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -113,7 +114,9 @@ public class WpilibSpline extends AbstractSpline {
             var values = ProjectPreferences.getInstance().getValues();
 
             TrajectoryConfig config = new TrajectoryConfig(values.getMaxVelocity(), values.getMaxAcceleration())
-                .setKinematics(new DifferentialDriveKinematics(values.getWheelBase())).setReversed(waypoints.get(0).isReversed());
+                .setKinematics(new DifferentialDriveKinematics(values.getWheelBase())).setReversed(waypoints.get(0).isReversed())
+		.addConstraint(new CentripetalAccelerationConstraint(values.getMaxCentripetalAcceleration()));
+
             Trajectory traj = trajectoryFromWaypoints(waypoints, config);
 
             var prefs = ProjectPreferences.getInstance();
